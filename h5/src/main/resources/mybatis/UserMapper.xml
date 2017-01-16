@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chao.helper.springboot.mapper.UserMapper">
+
+  <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap type="com.chao.helper.springboot.model.User" id="userResultMap">
+      <id property="id" column="id"  />
+      <result property="name" column="name"  />
+      <result property="age" column="age"  />
+      <result property="password" column="password"  />
+  </resultMap>
+
+  <!--执行增加操作的SQL语句。id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。
+  useGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键；
+  keyProperty="id"指定把获取到的主键值注入到User的id属性-->
+  <insert id="addUser" parameterType="com.chao.helper.springboot.model.User" useGeneratedKeys="true" keyProperty="id">
+    insert into _spring_boot_user (name,age,password) values (#{name},#{age},#{password})
+  </insert>
+
+  <update id="updateUser" parameterType="com.chao.helper.springboot.model.User" >
+    update _spring_boot_user set name=#{name},age=#{age},password=#{password} where id=#{id}
+  </update>
+
+  <delete id="deleteUser" parameterType="int">
+    delete from _spring_boot_user where id=#{id}
+  </delete>
+
+  <select id="getUserInfo" resultType="com.chao.helper.springboot.model.User">
+    select name, age, password from _spring_boot_user;
+  </select>
+
+  <!-- select语句 -->
+  <select id="selectUserByID" parameterType="int" resultType="com.chao.helper.springboot.model.User">
+    select * from _spring_boot_user where id = #{id}
+  </select>
+
+  <!-- 返回list的select语句，注意 resultMap的值是指向前面定义好的 -->
+  <select id="selectUsersByName" parameterType="String" resultMap="userResultMap">
+      select * from _spring_boot_user where name = #{name}
+  </select>
+
+  <select id="selectUsersByParam" parameterType="com.chao.helper.springboot.model.User" resultType="com.chao.helper.springboot.model.User">
+    select * from _spring_boot_user
+    <where>
+      1=1
+      <if test="name !=null and name != ''">
+        and name = #{name}
+      </if>
+      <if test="age !=null and age != ''">
+        and age = #{age}
+      </if>
+      <if test="password !=null and password != ''">
+        and password = #{password}
+      </if>
+    </where>
+  </select>
+
+
+
+</mapper>
