@@ -24,14 +24,14 @@ public class Provider_Code_Msg {
             conn = DriverManager.getConnection(url);
             // Statement里面带有很多方法，比如executeUpdate可以实现插入，更新和删除等
             Statement stmt = conn.createStatement();
-            sql = "select * from code_llyh_code_msg";
+            sql = "select * from code_jxzzwx_code_msg";
             ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
             while (rs.next()) {
 //                Thread.sleep(5000);
                 //子表
-//                System.out.println("LLYH_"+rs.getString(2)+"(\""+rs.getString(2)+"\",\"LLYH_"+rs.getString(2)+"\"),");
+//                System.out.println("JXZZWX_"+rs.getString(2)+"(\""+rs.getString(2)+"\",\"JXZZWX_"+rs.getString(2)+"\"),");
                 //总表
-                System.out.println("LLYH_"+rs.getString(2)+"(\"LLYH_"+rs.getString(2)+"\",\""+rs.getString(3)+"\"),");
+                System.out.println("JXZZWX_"+rs.getString(2)+"(\"JXZZWX_"+rs.getString(2)+"\",\""+rs.getString(3)+"\"),");
             }
         } catch (SQLException e) {
             System.out.println("MySQL操作错误");
