@@ -1,4 +1,4 @@
-﻿package com.chao.helper.array;
+package com.chao.helper.array;
 
 /**
  * 这是一个可以对数组进行操作的工具类，该类中提供了，获取最值，排序等功能。
