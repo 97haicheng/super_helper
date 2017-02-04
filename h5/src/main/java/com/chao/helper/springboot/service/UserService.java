@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by zl on 2015/8/27.
+ *
+ * http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-cache/
  */
 
 @Service
@@ -19,38 +21,59 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+
     public void addUser(User user){
         userMapper.addUser(user);
     }
 
-    @CacheEvict(value = "updateUser", keyGenerator = "wiselyKeyGenerator")
+
+    @CacheEvict(cacheNames= {"selectUserByID", "selectUsersByName"}, allEntries=true)
+//    @CacheEvict(value = "updateUser", keyGenerator = "wiselyKeyGenerator")
     public void updateUser(User user){
         userMapper.updateUser(user);
     }
 
-    public void deleteUser(int id){
-        userMapper.deleteUser(id);
+
+    @CacheEvict(cacheNames = {"selectUserByID", "selectUsersByName"}, allEntries=true)
+//    @CacheEvict(value = "deleteUserById", keyGenerator = "wiselyKeyGenerator")
+    public void deleteUserById(int id){
+        userMapper.deleteUserById(id);
     }
 
-    @Cacheable(value = "getUserInfo", keyGenerator = "wiselyKeyGenerator")
+
+    @Cacheable(cacheNames = "selectUserByID", key = "'USER:ID:USER_ID_' + #id")
+//    @Cacheable(value = "selectUserByID", keyGenerator = "wiselyKeyGenerator")
+    public User selectUserByID(int id){
+        return userMapper.selectUserByID(id);
+    }
+
+
+    @Cacheable(cacheNames = "selectUsersByName", key = "'USER:NAME:USER_NAME_' + #name")
+//    @Cacheable(value = "selectUsersByName", keyGenerator = "wiselyKeyGenerator")
+    public User selectUsersByName(String name){
+        return userMapper.selectUsersByName(name);
+    }
+
+
+//    @Cacheable(cacheNames = "selectUsersByParam")
+//    @Cacheable(value = "selectUsersByParam", keyGenerator = "wiselyKeyGenerator")
+    public User selectUsersByParam(User user){
+        return userMapper.selectUsersByParam(user);
+    }
+
+
+//    @Cacheable(cacheNames = "getUserInfo")
+//    @Cacheable(value = "getUserInfo", keyGenerator = "wiselyKeyGenerator")
     public List<User> getUserInfo(){
         List<User> listUser=userMapper.getUserInfo();
         return listUser;
     }
 
-    @Cacheable(value = "selectUserByID", keyGenerator = "wiselyKeyGenerator")
-    public User selectUserByID(int id){
-        return userMapper.selectUserByID(id);
-    }
 
-    @Cacheable(value = "selectUsersByName", keyGenerator = "wiselyKeyGenerator")
-    public User selectUsersByName(String name){
-        return userMapper.selectUsersByName(name);
-    }
-
-    @Cacheable(value = "selectUsersByParam", keyGenerator = "wiselyKeyGenerator")
-    public User selectUsersByParam(User user){
-        return userMapper.selectUsersByParam(user);
+    @CacheEvict(cacheNames = {"selectUserByID", "selectUsersByName"}, allEntries=true)
+//    @CacheEvict(value = "deleteUser", keyGenerator = "wiselyKeyGenerator")
+    public void deleteUser(User user) {
+        userMapper.deleteUser(user);
     }
 
 

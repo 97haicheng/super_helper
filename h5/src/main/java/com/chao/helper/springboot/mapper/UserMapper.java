@@ -14,7 +14,7 @@ public interface UserMapper {
 
     public void updateUser(User user);
 
-    public void deleteUser(int id);
+    public void deleteUserById(int id);
 
     public List<User> getUserInfo();
 
@@ -23,4 +23,6 @@ public interface UserMapper {
     public User selectUsersByName(String name);
 
     public User selectUsersByParam(User user);
+
+    public void deleteUser(User user);
 }

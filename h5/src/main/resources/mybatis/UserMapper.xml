@@ -21,7 +21,7 @@
     update _spring_boot_user set name=#{name},age=#{age},password=#{password} where id=#{id}
   </update>
 
-  <delete id="deleteUser" parameterType="int">
+  <delete id="deleteUserById" parameterType="int">
     delete from _spring_boot_user where id=#{id}
   </delete>
 
@@ -55,6 +55,24 @@
     </where>
   </select>
 
+  <delete id="deleteUser" parameterType="com.chao.helper.springboot.model.User">
+    delete from _spring_boot_user
+    <where>
+      1=1
+      <if test="id !=null and id != ''">
+        and id=#{id}
+      </if>
+      <if test="name !=null and name != ''">
+        and name = #{name}
+      </if>
+      <if test="age !=null and age != ''">
+        and age = #{age}
+      </if>
+      <if test="password !=null and password != ''">
+        and password = #{password}
+      </if>
+    </where>
+  </delete>
 
 
 </mapper>

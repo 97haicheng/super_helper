@@ -39,7 +39,7 @@ public class UserController {
     }
 
     /*
-     * http://127.0.0.1:8080/h5/updateUser
+     * http://127.0.0.1:8080/h5/updateUser?id=3&name=n&age=20&password=p
      */
     @RequestMapping("/updateUser")
     @ResponseBody
@@ -56,12 +56,12 @@ public class UserController {
     }
 
     /*
-     * http://127.0.0.1:8080/h5/deleteUser
+     * http://127.0.0.1:8080/h5/deleteUserById
      */
-    @RequestMapping("/deleteUser")
+    @RequestMapping("/deleteUserById")
     @ResponseBody
-    public void deleteUser(@RequestParam(value="id", required=false, defaultValue="1") int id){
-        userService.deleteUser(id);
+    public void deleteUserById(@RequestParam(value="id", required=false, defaultValue="1") int id){
+        userService.deleteUserById(id);
     }
 
     /*
@@ -116,6 +116,23 @@ public class UserController {
         user.setAge(age);
         user.setPassword(password);
         return userService.selectUsersByParam(user);
+    }
+
+    /*
+    * http://127.0.0.1:8080/h5/deleteUser?name=n&age=20&password=p
+    */
+    @RequestMapping("/deleteUser")
+    @ResponseBody
+    public void deleteUser(@RequestParam(value="id", required=false, defaultValue="1") int id,
+                           @RequestParam(value="name", required=false, defaultValue="World") String name,
+                           @RequestParam(value="age", required=false, defaultValue="20") int age,
+                           @RequestParam(value="password", required=false, defaultValue="Hello") String password){
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setAge(age);
+        user.setPassword(password);
+        userService.deleteUser(user);
     }
 
 
