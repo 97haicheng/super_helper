@@ -2,27 +2,29 @@ package com.chao.helper.springboot.mapper;
 
 
 import com.chao.helper.springboot.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by zl on 2015/8/27.
  */
+@Repository
 public interface UserMapper {
 
-    public void addUser(User user);
+    void addUser(User user);
 
-    public void updateUser(User user);
+    void updateUser(User user);
 
-    public void deleteUserById(int id);
+    void deleteUserById(int id);
 
-    public List<User> getUserInfo();
+    List<User> getUserInfo();
 
-    public User selectUserByID(int id);
+    User selectUserByID(int id);
 
-    public User selectUsersByName(String name);
+    User selectUsersByName(String name);
 
-    public User selectUsersByParam(User user);
+    User selectUsersByParam(User user);
 
-    public void deleteUser(User user);
+    void deleteUser(User user);
 }

@@ -93,7 +93,7 @@ public class UserController {
     }
 
     /*
-     * http://127.0.0.1:8080/h5/selectUsersByName
+     * http://127.0.0.1:8080/h5/selectUsersByName?name=liuxiao
      */
     @RequestMapping("/selectUsersByName")
     @ResponseBody
