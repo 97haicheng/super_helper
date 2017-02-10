@@ -40,4 +40,20 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        User user = new User();
+        user.setName("quchao");
+        System.out.println(user.toString());;
+    }
 }
