@@ -105,4 +105,25 @@ public class CRequest {
         }
         return mapRequest;
     }
+
+    /**
+     * 将map转换成url参数格式
+     * @param map
+     * @return
+     */
+    public static String getUrlParamsByMap(Map<String, Object> map) {
+        if (map == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            sb.append(entry.getKey() + "=" + entry.getValue());
+            sb.append("&");
+        }
+        String s = sb.toString();
+        if (s.endsWith("&")) {
+            s = org.apache.commons.lang3.StringUtils.substringBeforeLast(s, "&");
+        }
+        return s;
+    }
 }
