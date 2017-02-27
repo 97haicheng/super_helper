@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.2.xsd
+     http://www.springframework.org/schema/cache
+     http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <context:component-scan base-package="com.chao.helper.springboot.controller" />
+    <context:component-scan base-package="com.chao.helper.springboot.service"/>
+    <context:component-scan base-package="com.chao.helper.springboot.dao"/>
+    <context:component-scan base-package="com.chao.helper.springboot.mapper"/>
+
+    <context:annotation-config/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true"/>
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${spring.datasource.driver-class-name}"/>
+        <property name="url" value="${spring.datasource.url}"/>
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+
+        <property name="maxActive" value="20"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="1"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:/mybatis/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+        <property name="basePackage" value="com.chao.helper.springboot.mapper"/>
+    </bean>
+
+
+    <!-- ===================================================================================== -->
+
+
+    <bean id="jedisConnFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${spring.redis.server}"/>
+        <property name="password" value="${spring.redis.pwd}"/>
+        <property name="database" value="${spring.redis.database}"/>
+        <property name="timeout" value="${spring.redis.expiration}"/>
+        <!--<property name="usePool" value="true"/>-->
+    </bean>
+
+    <!-- redis template definition -->
+    <bean id="redisTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnFactory"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+    </bean>
+
+    <!-- turn on declarative caching -->
+    <cache:annotation-driven/>
+
+    <!-- declare Redis Cache Manager -->
+    <bean
+            id="cacheManager"
+            class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate"/>
+        <!--缓存10分钟-->
+        <property name="defaultExpiration" value="600"></property>
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig">
+            <bean class="redis.clients.jedis.JedisPoolConfig"/>
+        </constructor-arg>
+        <constructor-arg name="host" value="${spring.redis.server}"/>
+        <constructor-arg name="port" value="${spring.redis.port}"/>
+        <constructor-arg name="timeout" value="${spring.redis.timeout}"/>
+        <constructor-arg name="password" value="${spring.redis.pwd}"/>
+        <constructor-arg name="database" value="${spring.redis.expiration}"/>
+    </bean>
+
+
+
+    <!--<bean id="userService" class="com.chao.helper.springboot.service.UserService"></bean>-->
+
+    <!--<import resource="classpath*:spring-database.xml"/>-->
+    <!--<import resource="classpath*:spring-redis.xml"/>-->
+    <!--<import resource="classpath*:spring-service.xml"/>-->
+</beans>
