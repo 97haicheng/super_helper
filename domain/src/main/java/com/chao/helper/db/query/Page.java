@@ -188,7 +188,7 @@ public class Page {
 	/**
 	 * 获得排序方向,默认为asc
 	 * 
-	 * @param   可选值为desc或asc,多个排序字段时用','分隔.
+	 * @param   '可选值为desc或asc,多个排序字段时用','分隔.
 	 */
 	@JsonIgnore // 转为json时忽略
 	public String getOrder() {

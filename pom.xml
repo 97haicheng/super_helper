@@ -15,7 +15,9 @@
         <module>service</module>
         <module>h5</module>
         <module>test</module>
+        <module>springmvc</module>
         <module>springhbn</module>
+        <module>springboot</module>
     </modules>
 
     <properties>
