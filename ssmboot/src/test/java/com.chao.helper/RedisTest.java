@@ -1,0 +1,89 @@
+package com.chao.helper;
+
+import com.alibaba.fastjson.JSON;
+import com.chao.helper.dao.RediscontentMapper;
+import com.chao.helper.pojo.Content;
+import com.chao.helper.pojo.Rediscontent;
+import com.chao.helper.service.ContentService;
+import com.chao.helper.service.IUserService;
+import com.chao.helper.service.RediscontentService;
+import com.chao.helper.util.PageEntity;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import redis.clients.jedis.JedisPoolConfig;
+
+import java.util.List;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:/*.xml"})
+public class RedisTest {
+
+    @Autowired
+    private ContentService contentService;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private RediscontentMapper rediscontentMapper;
+
+    @Autowired
+    private RediscontentService rediscontentService;
+
+    @Test
+    public void test() {
+        JedisPoolConfig config = new JedisPoolConfig();
+        // 设置空间连接
+
+        config.setMaxIdle(20);
+        config.setMaxWaitMillis(1000);
+
+
+//        JedisPool pool = new JedisPool(config, "27.126.180.210", 6379);
+//        System.out.println(pool.getResource());
+//        Jedis jedis = pool.getResource();
+//        jedis.set("name", "陈杰");
+//        System.out.println(jedis.get("name"));
+
+    }
+
+    @Test
+    public void testCache() {
+        System.out.println("---------------");
+        List<Content> contentList = contentService.findContentList();
+        List<Content> contentList1 = contentService.findContentList();
+        System.out.println(contentList == contentList1);
+
+        System.out.println(contentList.get(0).getContent() + "-----------");
+
+    }
+
+    @Test
+    public void redisMapper() {
+        Rediscontent rediscontent = rediscontentService.selectByPrimaryKey(1);
+        System.out.println(JSON.toJSONString(rediscontent));
+
+    }
+
+    @Test
+    public void redisPageMapper() {
+        PageEntity<Rediscontent> rediscontentPageEntity = rediscontentService.selectByPage(2, 10);
+        System.out.println(JSON.toJSONString(rediscontentPageEntity));
+
+    }
+
+    //    @Test
+    public void saveData() {
+        for (int i = 0; i < 100; i++) {
+            Rediscontent rediscontent = new Rediscontent();
+            rediscontent.setContent("你好啊" + i);
+            rediscontentMapper.insertSelective(rediscontent);
+        }
+    }
+
+
+}
