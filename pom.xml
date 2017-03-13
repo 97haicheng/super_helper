@@ -18,6 +18,7 @@
         <module>springmvc</module>
         <module>springhbn</module>
         <module>springboot</module>
+        <module>ssmboot</module>
     </modules>
 
     <properties>
