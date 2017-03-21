@@ -515,4 +515,8 @@ public class DateUtils {
         return sdf.format(calendar.getTime());
     }
 
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
+
 }
