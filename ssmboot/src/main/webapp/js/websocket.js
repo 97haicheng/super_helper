@@ -6,7 +6,8 @@ $(function(){
 function refresh(){
     $.ajax({
         type:'POST',
-        url:getPath()+'/content_load',
+        //url:getPath()+'/content_load',
+        url:'http://127.0.0.1:8080/ssmboot/content_load',
         success:function(data){
             if (data.result ==1){
                 var contents = data.data.contents ;

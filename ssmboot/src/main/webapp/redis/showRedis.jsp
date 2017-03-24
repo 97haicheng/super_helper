@@ -40,9 +40,9 @@
     <div class="explain_box">
         <div class="explain_link">ID</div>
         <div class="explain_link">content</div>
-        <div class="explain_link">null</div>
-        <div class="explain_link">null</div>
-        <div class="explain_link">null</div>
+        <div class="explain_link">num</div>
+        <div class="explain_link">num</div>
+        <div class="explain_link">num</div>
         <div class="explain_link product_operation">操作</div>
     </div>
     <div class="product_content">

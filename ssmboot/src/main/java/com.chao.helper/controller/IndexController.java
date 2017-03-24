@@ -55,6 +55,7 @@ public class IndexController {
         return "index";
     }
 
+//    http://192.168.1.166:8080/ssmboot/turnToWebSocketIndex
     @RequestMapping("/turnToWebSocketIndex")
     public String turnToWebSocketIndex(){
         return  "websocket/websocket" ;

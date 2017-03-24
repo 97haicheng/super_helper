@@ -1,1 +1,15 @@
 整体工程说明
+1、api  对接上游流量供应商，主要使用HTTP
+2、billing  接收MQ消息，线程执行任务
+3、common  所有的公共资源
+4、domain  持久层，dbutil，代码生成工具
+5、h5  springboot，redies、rabbitmq深入，swagger页面
+6、service  业务层
+7、springboot  springboot，redies、rabbitmq深入，swagger页面
+8、springhbn  spring+springmvc+hibernate
+9、springmvc  springmvc-->接口
+10、ssmboot  spring+springmvc+mybatis，redies，lucene，shiro，cxf
+11、test  自用学习
+
+
+

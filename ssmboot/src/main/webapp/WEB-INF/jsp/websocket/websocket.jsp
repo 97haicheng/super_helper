@@ -78,7 +78,7 @@
 
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://192.168.0.102:8080/ssm/websocket");
+        websocket = new WebSocket("ws://127.0.0.1:8080/ssmboot/websocket");
     }
     else {
         alert("对不起！你的浏览器不支持webSocket")
