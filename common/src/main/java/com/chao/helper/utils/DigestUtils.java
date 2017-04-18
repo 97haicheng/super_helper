@@ -98,6 +98,9 @@ public class DigestUtils {
                     .append(param.getValue()).append("&");
         }
         basestring.append("key=").append(secret);
+
+        System.out.println(basestring.toString());
+
         // 使用 MD5 对待签名串求签
         byte[] bytes = computeMD5Digest(stringToBytes(basestring.toString()));
 
