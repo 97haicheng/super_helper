@@ -30,7 +30,7 @@ public class RandomUtil {
     /**
      * 返回长度为【length】的随机码
      */
-    private static String getRandomString(int length) { //length表示生成字符串的长度
+    public static String getRandomString(int length) { //length表示生成字符串的长度
 //        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         String base = "0123456789";
         Random random = new Random();
