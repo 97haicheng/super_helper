@@ -34,10 +34,16 @@ public class ObjToJson {
         redeemRule3.setExchange(1);
         list.add(redeemRule3);
 
+        String jsonSub = JacksonUtil.toJSon(redeemRule1);
+        System.out.println(jsonSub);
+        String goodsName = jsonSub.split(",")[2];//流水号
+        System.out.println(goodsName);
+
         String json = JacksonUtil.toJSon(list);
         System.out.println(JacksonUtil.toJSon(list));
 
         List<RedeemRule> listCopy = JacksonUtil.readValue(json,new TypeReference<List<RedeemRule>>(){});
         System.out.println(listCopy.get(0).getNetType());
+
     }
 }
