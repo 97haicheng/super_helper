@@ -16,6 +16,18 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.chao.helper</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chao.helper</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- json不排序 -->
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
@@ -46,6 +58,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.3</version>
         </dependency>
 
     </dependencies>

@@ -66,7 +66,7 @@ public class ReadTxtFile {
     }
 
     public static void main(String argv[]){
-        String filePath = "C:\\Users\\Administrator\\Desktop\\书签整理\\bookmarks.html";
+        String filePath = "C:\\Users\\Administrator\\Desktop\\bookmarks.html";
 //      "res/";
         readTxtFile(filePath);
     }
